@@ -15,3 +15,7 @@ Os dados do programa estão disponíveis como dados abertos no
 
 A seguir, são apresentadas algumas visualizações sobre os dados dos
 últimos 7 dias.
+
+
+
+Atualizada em: {{ site.time | date: '%Y-%m-%d' }}
