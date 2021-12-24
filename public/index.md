@@ -21,6 +21,17 @@ O código deste site é software livre e encontra-se disponível
 A seguir, são apresentadas algumas visualizações sobre os dados dos
 últimos 7 dias.
 
+## Mapa de calor
 
+Os dados dos últimos 7 dias podem ser visualizados como mapa de calor.
+
+<iframe
+    src="maps/heatmap.html"
+    title="mapa de calor"
+    width="800"
+    height="600">
+</iframe>
+
+[Ver em tela cheia](maps/heatmap.html).
 
 Atualizada automaticamente em: {{ site.time | date: '%Y-%m-%d %H:%M:%S' }}
