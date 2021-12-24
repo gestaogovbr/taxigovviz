@@ -36,4 +36,15 @@ Os dados dos últimos 7 dias podem ser visualizados como mapa de calor.
 
 Ver [este mapa em tela cheia](maps/heatmap.html).
 
+E também em uma animação por cada dia, dentre os últimos 7 dias.
+
+<iframe
+    src="maps/heatmap-time.html"
+    title="mapa de calor por tempo"
+    width="800"
+    height="600">
+</iframe>
+
+Ver [este mapa em tela cheia](maps/heatmap-time.html).
+
 Atualizada automaticamente em: {{ site.time | date: '%Y-%m-%d %H:%M:%S' }}

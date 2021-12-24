@@ -272,9 +272,13 @@ def generate_maps(path: str):
     df = get_data(DATA_URL)
 
     # Mapa de calor geral
-    m = heat_map(df.iloc[:], 'destino_efetivo')
+    m = heat_map(df, 'destino_efetivo')
     m.fit_bounds(m.get_bounds())
     m.save(os.path.join(maps_folder, 'heatmap.html'))
+
+    # Mapa de calor por dia
+    m = heat_map_with_time(df, 'destino_efetivo')
+    m.save(os.path.join(maps_folder, 'heatmap-time.html'))
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(
