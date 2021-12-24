@@ -23,4 +23,4 @@ A seguir, são apresentadas algumas visualizações sobre os dados dos
 
 
 
-Atualizada automaticamente em: {{ site.time | date: '%Y-%m-%d' }}
+Atualizada automaticamente em: {{ site.time | date: '%Y-%m-%d %H:%M:%S' }}
