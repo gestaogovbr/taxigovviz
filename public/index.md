@@ -73,5 +73,20 @@ metade do número representado.
 
 Ver [este mapa em tela cheia](maps/clusters.html).
 
+### Por órgão
+
+Selecione o ícone de camadas no canto superior direito do mapa para
+selecionar um ou mais órgãos. As corridas dos órgãos selecionados
+serão exibidas com marcadores individuais.
+
+<iframe
+    src="maps/orgaos.html"
+    title="mapa de agrupamentos"
+    width="800"
+    height="600">
+</iframe>
+
+
+
 Página atualizada automaticamente em:
 {{ site.time | date: '%Y-%m-%d %H:%M:%S' }} (UTC).

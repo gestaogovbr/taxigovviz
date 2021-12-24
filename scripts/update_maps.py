@@ -284,6 +284,10 @@ def generate_maps(path: str):
     m = fares_map_cluster(df)
     m.save(os.path.join(maps_folder, 'clusters.html'))
 
+    # Mapa por órgão
+    m = fares_map_category(df, 'nome_orgao')
+    m.save(os.path.join(maps_folder, 'orgaos.html'))
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(
         description=__doc__
