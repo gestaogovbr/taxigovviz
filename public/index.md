@@ -1,4 +1,6 @@
-# O programa
+# TaxiGov na semana
+
+## O programa
 
 O TaxiGov é um programa do governo federal para transporte de pessoas,
 em geral servidores públicos, usando serviços de táxi comum da cidade
@@ -6,22 +8,22 @@ onde está localizado o órgão público. Para maiores informações sobre o
 TaxiGov, consulte o
 [portal gov.br](https://www.gov.br/economia/pt-br/assuntos/gestao/central-de-compras/taxigov).
 
-# Os dados
+## Os dados
 
 Os dados do programa estão disponíveis como dados abertos no
 [portal dados.gov.br](https://dados.gov.br/dataset/corridas-do-taxigov).
 
-# O código
+## O código
 
 O código deste site é software livre e encontra-se disponível
 [no Github](https://github.com/economiagovbr/taxigovviz).
 
-# As visualizações
+## As visualizações
 
 A seguir, são apresentadas algumas visualizações sobre os dados dos
 últimos 7 dias.
 
-## Mapa de calor
+### Mapa de calor
 
 Os dados dos últimos 7 dias podem ser visualizados como mapa de calor.
 
@@ -32,6 +34,6 @@ Os dados dos últimos 7 dias podem ser visualizados como mapa de calor.
     height="600">
 </iframe>
 
-[Ver em tela cheia](maps/heatmap.html).
+Ver [este mapa em tela cheia](maps/heatmap.html).
 
 Atualizada automaticamente em: {{ site.time | date: '%Y-%m-%d %H:%M:%S' }}
