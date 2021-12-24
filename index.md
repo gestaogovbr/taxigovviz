@@ -11,6 +11,11 @@ TaxiGov, consulte o
 Os dados do programa estão disponíveis como dados abertos no
 [portal dados.gov.br](https://dados.gov.br/dataset/corridas-do-taxigov).
 
+# O código
+
+O código deste site é software livre e encontra-se disponível
+[no Github](https://github.com/economiagovbr/taxigovviz).
+
 # As visualizações
 
 A seguir, são apresentadas algumas visualizações sobre os dados dos
