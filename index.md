@@ -9,7 +9,7 @@ TaxiGov, consulte o
 # Os dados
 
 Os dados do programa estão disponíveis como dados abertos no
-[protal dados.gov.br](https://dados.gov.br/dataset/corridas-do-taxigov).
+[portal dados.gov.br](https://dados.gov.br/dataset/corridas-do-taxigov).
 
 # As visualizações
 
@@ -18,4 +18,4 @@ A seguir, são apresentadas algumas visualizações sobre os dados dos
 
 
 
-Atualizada em: {{ site.time | date: '%Y-%m-%d' }}
+Atualizada automaticamente em: {{ site.time | date: '%Y-%m-%d' }}
