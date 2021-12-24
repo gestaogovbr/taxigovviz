@@ -280,6 +280,10 @@ def generate_maps(path: str):
     m = heat_map_with_time(df, 'destino_efetivo')
     m.save(os.path.join(maps_folder, 'heatmap-time.html'))
 
+    # Mapa de agrupamentos (clusters)
+    m = fares_map_cluster(df)
+    m.save(os.path.join(maps_folder, 'clusters.html'))
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(
         description=__doc__
