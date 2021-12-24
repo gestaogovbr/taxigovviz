@@ -1,0 +1,33 @@
+name: Update visualization
+
+on:
+  push:
+    branches:
+      - main  # Set a branch name to trigger deployment
+  schedule:
+    - cron: 35 8 * * *
+
+jobs:
+  update:
+    runs-on: ubuntu-20.04
+    name: Update data visualization site
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.9
+          architecture: x64
+      - name: Install Python dependencies
+        uses: py-actions/py-dependency-install@v2
+        with:
+          path: "scripts/requirements.txt"
+      - name: Generate Folium visualizations
+        run: "python3 scripts/update_maps.py --path ./public"
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v3
+        if: ${{ github.ref == 'refs/heads/main' }}
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./public
+          enable_jekyll: true
