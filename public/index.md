@@ -73,4 +73,5 @@ metade do número representado.
 
 Ver [este mapa em tela cheia](maps/clusters.html).
 
-Atualizada automaticamente em: {{ site.time | date: '%Y-%m-%d %H:%M:%S' }}
+Página atualizada automaticamente em:
+{{ site.time | date: '%Y-%m-%d %H:%M:%S' }} (UTC).
