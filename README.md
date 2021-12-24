@@ -8,7 +8,7 @@ Github Actions.
 
 Para visualizar os dados, veja o link:
 
-https://taxigovviz.github.io
+https://economiagovbr.github.io/taxigovviz/
 
 
 ## Dados de origem
