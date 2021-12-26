@@ -79,14 +79,17 @@ Selecione o ícone de camadas no canto superior direito do mapa para
 selecionar um ou mais órgãos. As corridas dos órgãos selecionados
 serão exibidas com marcadores individuais.
 
+Os pontos de partida estão representados em azul e os pontos de chegada
+em laranja.
+
 <iframe
     src="maps/orgaos.html"
-    title="mapa de agrupamentos"
+    title="mapa por órgão"
     width="800"
     height="600">
 </iframe>
 
-
+Ver [este mapa em tela cheia](maps/orgaos.html).
 
 Página atualizada automaticamente em:
 {{ site.time | date: '%Y-%m-%d %H:%M:%S' }} (UTC).
