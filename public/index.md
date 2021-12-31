@@ -4,6 +4,8 @@ layout: default
 
 # TaxiGov na semana
 
+Veja aqui como foi a utilização do TaxiGov nos últimos 7 dias.
+
 ## O programa
 
 O TaxiGov é um programa do governo federal para transporte de pessoas,
