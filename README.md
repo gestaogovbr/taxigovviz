@@ -14,6 +14,7 @@ https://economiagovbr.github.io/taxigovviz/
 ## Dados de origem
 
 Os dados usados na visualização podem ser baixados no seguinte link:
-
 [taxigov-corridas-7-dias.zip](http://repositorio.dados.gov.br/seges/taxigov/taxigov-corridas-7-dias.zip)
 
+Mais informações sobre os dados podem ser encontradas no
+[Portal Brasileiro de Dados Abertos](https://dados.gov.br/dataset/corridas-do-taxigov).
