@@ -18,7 +18,7 @@ https://economiagovbr.github.io/taxigovviz/
 * Agrupamentos geográficos (clusters)
 * Corridas individuais, uma camada por órgão
 
-![Exemplo de visualização por mapa de calor](assets/images/mapa-de-calor-taxigov.png)
+[![Exemplo de visualização por mapa de calor](assets/images/mapa-de-calor-taxigov.png)](https://economiagovbr.github.io/taxigovviz/)
 
 ## Dados de origem
 
