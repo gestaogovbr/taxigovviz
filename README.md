@@ -11,6 +11,15 @@ Para visualizar os dados, veja o link:
 https://economiagovbr.github.io/taxigovviz/
 
 
+## Tipos de visualização
+
+* Mapa de calor
+* Animação no tempo de mapa de calor
+* Agrupamentos geográficos (clusters)
+* Corridas individuais, uma camada por órgão
+
+![Exemplo de visualização por mapa de calor](assets/images/mapa-de-calor-taxigov.png)
+
 ## Dados de origem
 
 Os dados usados na visualização podem ser baixados no seguinte link:
