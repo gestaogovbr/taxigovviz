@@ -19,19 +19,25 @@ MAPS_SUBFOLDER = 'maps'
 def clean_data(df: pd.DataFrame) -> pd.DataFrame:
     "Limpa os dados, corrigindo problemas de qualidade de dados na origem."
 
-    df['origem_latitude'] = df['origem_latitude'].astype(float)
-    df['origem_longitude'] = df['origem_longitude'].astype(float)
-
-    # coordenadas sem ponto decimal
     for point_type in ('origem', 'destino_solicitado', 'destino_efetivo'):
-        latitude_inexistente = (
-            df[f'{point_type}_latitude'] < -90.0, f'{point_type}_latitude')
-        longitude_inexistente = (
-            df[f'{point_type}_longitude'] < -180.0, f'{point_type}_longitude')
-        df.loc[latitude_inexistente] = (
-            df.loc[latitude_inexistente] / 100000.0)
-        df.loc[longitude_inexistente] = (
-            df.loc[longitude_inexistente] / 100000.0)
+        # coordenadas como string e com vírgula como separador decimal
+        for axis in ('latitude', 'longitude'):
+            column = '_'.join((point_type, axis))
+            if df[column].dtype == 'object':
+                df[column] = df[column].str.replace(',','.')
+                df[column] = df[column].astype(float)
+
+        # coordenadas com valores inválidos
+        latitude_inexistente = (df[f'{point_type}_latitude'] < -90.0), f'{point_type}_latitude'
+        longitude_inexistente = (df[f'{point_type}_longitude'] < -180.0), f'{point_type}_longitude'
+        df.loc[latitude_inexistente] = df.loc[latitude_inexistente] / 100000.0
+        df.loc[longitude_inexistente] = df.loc[longitude_inexistente] / 100000.0
+
+        # coordenadas no hemisfério errado
+        latitude_fora_hemisferio = (df[f'{point_type}_latitude'] > 0.0), f'{point_type}_latitude'
+        longitude_fora_hemisferio = (df[f'{point_type}_longitude'] > 0.0), f'{point_type}_longitude'
+        df.loc[latitude_fora_hemisferio] = df.loc[latitude_fora_hemisferio] * -1.0
+        df.loc[longitude_fora_hemisferio] = df.loc[longitude_fora_hemisferio] * -1.0
 
     # converte o que não for numérico
     numeric_columns = ['origem_latitude', 'origem_longitude',
