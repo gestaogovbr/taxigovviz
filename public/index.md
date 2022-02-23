@@ -6,17 +6,17 @@ layout: default
 
 Veja aqui como foi a utilização do TaxiGov nos últimos 7 dias.
 
-## O programa
+## O serviço
 
-O TaxiGov é um programa do governo federal para transporte de pessoas,
-em geral servidores públicos, usando serviços de táxi comum da cidade
-onde está localizado o órgão público. Para maiores informações sobre o
-TaxiGov, consulte o
+O TaxiGov é um serviço do governo federal para transporte de servidores
+públicos e colaboradores, usando serviços de táxi comum ou transporte por
+aplicativo nas capitais. Para maiores informações sobre o TaxiGov,
+consulte o
 [portal gov.br](https://www.gov.br/economia/pt-br/assuntos/gestao/central-de-compras/taxigov).
 
 ## Os dados
 
-Os dados do programa estão disponíveis como dados abertos no
+Os dados do serviço estão disponíveis como dados abertos no
 [portal dados.gov.br](https://dados.gov.br/dataset/corridas-do-taxigov).
 
 ## O código
