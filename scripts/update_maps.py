@@ -9,76 +9,57 @@ from collections import defaultdict, OrderedDict, namedtuple
 
 import pandas as pd
 import numpy as np
+from frictionless import Package
 
 import folium
 from folium.plugins import HeatMap, HeatMapWithTime
 
-DATA_URL = 'http://repositorio.dados.gov.br/seges/taxigov/taxigov-corridas-7-dias.zip'
+PACKAGE_URL = "https://repositorio.dados.gov.br/seges/taxigov/v2/datapackage.yaml"
+RESOURCE_NAME = "corridas-7-dias"
 MAPS_SUBFOLDER = 'maps'
-
-def clean_data(df: pd.DataFrame) -> pd.DataFrame:
-    "Limpa os dados, corrigindo problemas de qualidade de dados na origem."
-
-    for point_type in ('origem', 'destino_solicitado', 'destino_efetivo'):
-        # coordenadas como string e com vírgula como separador decimal
-        for axis in ('latitude', 'longitude'):
-            column = '_'.join((point_type, axis))
-            if df[column].dtype == 'object':
-                df[column] = df[column].str.replace(',','.')
-                df[column] = df[column].astype(float)
-
-        # coordenadas com valores inválidos
-        latitude_inexistente = (df[f'{point_type}_latitude'] < -90.0), f'{point_type}_latitude'
-        longitude_inexistente = (df[f'{point_type}_longitude'] < -180.0), f'{point_type}_longitude'
-        df.loc[latitude_inexistente] = df.loc[latitude_inexistente] / 100000.0
-        df.loc[longitude_inexistente] = df.loc[longitude_inexistente] / 100000.0
-
-        # coordenadas no hemisfério errado
-        latitude_fora_hemisferio = (df[f'{point_type}_latitude'] > 0.0), f'{point_type}_latitude'
-        longitude_fora_hemisferio = (df[f'{point_type}_longitude'] > 0.0), f'{point_type}_longitude'
-        df.loc[latitude_fora_hemisferio] = df.loc[latitude_fora_hemisferio] * -1.0
-        df.loc[longitude_fora_hemisferio] = df.loc[longitude_fora_hemisferio] * -1.0
-
-    # converte o que não for numérico
-    numeric_columns = ['origem_latitude', 'origem_longitude',
-        'destino_solicitado_latitude', 'destino_solicitado_longitude',
-        'destino_efetivo_latitude', 'destino_efetivo_longitude']
-    for column in numeric_columns:
-        if df[column].dtype != 'float64':
-            df[column] = df[column].apply(
-                lambda s: pd.to_numeric(s) if isinstance(s, str) else s)
-
-    return df
 
 def get_data(url: str) -> pd.DataFrame:
     "Obtém o data frame a partir da origem dos dados."
 
-    df = pd.read_csv(url, compression='zip')
-    return clean_data(df)
+    package = Package(url)
+    df = package.get_resource(RESOURCE_NAME).to_pandas()
+    return df
 
 def marker_popup(corrida: namedtuple, tipo: str) -> str:
     "Retorna o conteúdo formatado de um marcador."
+
+    corrida_details = (
+        f'<dt>Órgão:</dt><dd>{corrida.orgao_nome}</dd>'
+        f'<dt>Unidade administrativa:</dt><dd>{corrida.unidade_administrativa_nome}</dd>'
+        f'<dt>Status:</dt><dd>{corrida.status}</dd>'
+        f'<dt>Motivo:</dt><dd>{corrida.motivo}</dd>'
+        f'<dt>Justificativa:</dt><dd>{corrida.justificativa if corrida.justificativa else "-"}</dd>'
+        f'<dt>Distância:</dt><dd>{"-" if np.isnan(corrida.km_total) else corrida.km_total}</dd>'
+        f'<dt>Valor:</dt><dd>{"-" if np.isnan(corrida.valor_corrida) else corrida.valor_corrida}</dd>'
+        f'<dt>Veículo</dt><dd>'
+            '<dt>Fabricante / modelo</dt>'
+            f'<dd>{corrida.veiculo_fabricante} / {corrida.veiculo_modelo}</dd>'
+            '<dt>Ano fabricação / modelo</dt>'
+            f'<dd>{corrida.veiculo_ano_fabricacao} / {corrida.veiculo_ano_fabricacao}</dd>'
+            f'<dt>Cor</dt><dd>{corrida.veiculo_cor}</dd>'
+            f'<dt>Placa</dt><dd>{corrida.veiculo_placa}</dd>'
+        '</dd>'
+    )
 
     markup = {
         'partida': (
             '<dl>'
             f'<dt>Hora partida:<dt><dd>{corrida.data_inicio}</dd>'
             '<dt>Destino efetivo:<dt>'
-            f'<dd>{corrida.destino_efetivo_endereco}</dd>'
-            f'<dt>Órgão:</dt><dd>{corrida.nome_orgao}</dd>'
-            f'<dt>Motivo:</dt><dd>{corrida.motivo_corrida}</dd>'
-            f'<dt>Distância:</dt><dd>{corrida.km_total}</dd>'
-            f'<dt>Valor:</dt><dd>{corrida.valor_corrida}</dd>'
+            f'<dd>{corrida.destino_efetivo_endereco if corrida.destino_efetivo_endereco else "-"}</dd>'
+            + corrida_details +
             '</dl>'
         ),
         'chegada': (
             '<dl>'
             f'<dt>Hora chegada:</dt><dd>{corrida.data_final}</dd>'
             f'<dt>Origem:<dt><dd>{corrida.origem_endereco}</dd>'
-            f'<dt>Órgão:</dt><dd>{corrida.nome_orgao}</dd>'
-            f'<dt>Motivo:</dt><dd>{corrida.motivo_corrida}</dd>'
-            f'<dt>Distância:</dt><dd>{corrida.km_total}</dd>'
-            f'<dt>Valor:</dt><dd>{corrida.valor_corrida}</dd>'
+            + corrida_details +
             '</dl>'
         ),
     }
@@ -256,7 +237,7 @@ def heat_map_with_time(df: pd.DataFrame, point_type: str) -> folium.Map:
     # prepara estrutura de dados do HeatMapWithTime
     data = defaultdict(list)
     for index, row in df_notna.iterrows():
-        data[datetime.fromisoformat(row['data_inicio']).date().strftime("%Y-%m-%d")].append([
+        data[row['data_inicio'].date().strftime("%Y-%m-%d")].append([
             row[f'{point_type}_latitude'],
             row[f'{point_type}_longitude']
         ])
@@ -277,7 +258,7 @@ def generate_maps(path: str):
     pathlib.Path(maps_folder).mkdir(exist_ok=True)
 
     # obtém os dados
-    df = get_data(DATA_URL)
+    df = get_data(PACKAGE_URL)
 
     # Mapa de calor geral
     m = heat_map(df, 'destino_efetivo')
@@ -293,7 +274,7 @@ def generate_maps(path: str):
     m.save(os.path.join(maps_folder, 'clusters.html'))
 
     # Mapa por órgão
-    m = fares_map_category(df, 'nome_orgao')
+    m = fares_map_category(df, 'orgao_nome')
     m.save(os.path.join(maps_folder, 'orgaos.html'))
 
 if __name__ == "__main__":
