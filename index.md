@@ -22,7 +22,7 @@ Os dados do serviço estão disponíveis como dados abertos no
 ## O código
 
 O código deste site é software livre e encontra-se disponível
-[no Github](https://github.com/economiagovbr/taxigovviz).
+[no Github](https://github.com/gestaogovbr/taxigovviz).
 
 Feito com Python, Pandas e Folium.
 
