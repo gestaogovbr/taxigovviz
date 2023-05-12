@@ -8,7 +8,7 @@ Github Actions.
 
 Para visualizar os dados, veja o link:
 
-https://economiagovbr.github.io/taxigovviz/
+https://gestaogovbr.github.io/taxigovviz/
 
 
 ## Tipos de visualização
@@ -18,7 +18,7 @@ https://economiagovbr.github.io/taxigovviz/
 * Agrupamentos geográficos (clusters)
 * Corridas individuais, uma camada por órgão
 
-[![Exemplo de visualização por mapa de calor](assets/images/mapa-de-calor-taxigov.png)](https://economiagovbr.github.io/taxigovviz/)
+[![Exemplo de visualização por mapa de calor](assets/images/mapa-de-calor-taxigov.png)](https://gestaogovbr.github.io/taxigovviz/)
 
 ## Dados de origem
 
